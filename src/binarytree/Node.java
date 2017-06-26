@@ -3,11 +3,13 @@ package binarytree;
 public class Node {
 
 	int num;
+	Node parent;
 	Node leftChild;
 	Node rightChild;
 	
-	public Node(int i) {
+	public Node(int i, Node daddy) {
 		num = i;
+		parent = daddy;
 	}
 
 	public int getNum() {
@@ -34,5 +36,12 @@ public class Node {
 		this.rightChild = rightChild;
 	}
 	
+	public Node getParent() {
+		return parent;
+	}
+
+	public void setParent(Node parent) {
+		this.parent = parent;
+	}
 	
 }
