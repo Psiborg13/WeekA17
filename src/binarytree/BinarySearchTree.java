@@ -63,6 +63,7 @@ public class BinarySearchTree implements Set{
 	@Override
 	public void clear() {
 		headNode = null;
+		size = 0;
 	}
 
 	@Override
