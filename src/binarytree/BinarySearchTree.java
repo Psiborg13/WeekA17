@@ -117,82 +117,124 @@ public class BinarySearchTree implements Set{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public boolean reconnect(Node parent, int removeNum) {
-		if(parent==null)
-		{
-			parent = headNode;
+		boolean isLeftChild = false;
+		if(parent.getLeftChild()!=null&&parent.getLeftChild().getNum()==removeNum){
+			isLeftChild = true;
 		}
-		Node head;
-		boolean isLeft = false;
-		if(parent.getLeftChild()==null && parent.getLeftChild().getNum() == removeNum)
-		{
-			head = parent.getLeftChild();
-			isLeft = true;
-		}
-		else
-		{
-			head = parent.getRightChild();
-		}
-		Node left = head.getLeftChild();
-		Node right = head.getRightChild();
-		if(left==null) {
-			if(right==null) {
-				head = null;
-				return true;
+		if(isLeftChild){
+			if(parent.getLeftChild().getLeftChild()==null){
+				if(parent.getLeftChild().getRightChild()==null){
+					parent.setLeftChild(null);
+					size--;
+					return true;
+				}
+				else{
+					parent.setLeftChild(parent.getLeftChild().getRightChild());
+					size--;
+					return true;
+				}
 			}
-			else
-			{
-				right.parent = right;
-				return true;
-			}
-		}
-		else {
-			if(right==null) {
-				head = left;
-				return true;
-			}
-			else
-			{
-				head = left;
-				int num = right.getNum();
-				Node curNode = head;
-				while(true) {
-					if(curNode==null) {																																																																																					
-						curNode=right;
-						size--;
-						return true;
-					}
-					else if(num>curNode.getNum()){
-						if(curNode.getRightChild()==null){
-							curNode.setRightChild(right);
-							size--;
-							return true;
+			else{
+				if(parent.getLeftChild().getRightChild()==null){
+					parent.setLeftChild(parent.getLeftChild().getLeftChild());
+					size--;
+					return true;
+				}
+				else{
+					Node left;
+					Node right;
+					left = parent.getLeftChild().getLeftChild();
+					right = parent.getLeftChild().getRightChild();
+					parent.setLeftChild(left);
+					Node curNode = left;
+					while(true) {
+						if(removeNum>curNode.getNum()){
+							if(curNode.getRightChild()==null){
+								curNode.setRightChild(right);
+								size--;
+								return true;
+							}
+							else{
+								curNode = curNode.getRightChild();
+							}
 						}
-						else{
-							curNode = curNode.getRightChild();
+						else if(removeNum<curNode.getNum()){
+							if(curNode.getLeftChild()==null){
+								curNode.setLeftChild(right);
+								size--;
+								return true;
+							}
+							else{
+								curNode = curNode.getLeftChild();
+							}
 						}
-					}
-					else if(num<curNode.getNum()){
-						if(curNode.getLeftChild()==null){
-							curNode.setLeftChild(right);
-							size--;
-							return true;
+						else
+						{
+							return false;
 						}
-						else{
-							curNode = curNode.getLeftChild();
-						}
-					}
-					else
-					{
-						return false;
 					}
 				}
 			}
-
+		}
+		else{
+			if(parent.getRightChild().getLeftChild()==null){
+				if(parent.getRightChild().getRightChild()==null){
+					parent.setLeftChild(null);
+					size--;
+					return true;
+				}
+				else{
+					parent.setRightChild(parent.getRightChild().getRightChild());
+					size--;
+					return true;
+				}
+			}
+			else{
+				if(parent.getRightChild().getRightChild()==null){
+					parent.setRightChild(parent.getRightChild().getLeftChild());
+					size--;
+					return true;
+				}
+				else{
+					Node left;
+					Node right;
+					left = parent.getRightChild().getLeftChild();
+					right = parent.getRightChild().getRightChild();
+					parent.setRightChild(left);
+					Node curNode = left;
+					while(true) {
+						if(removeNum>curNode.getNum()){
+							if(curNode.getRightChild()==null){
+								curNode.setRightChild(right);
+								size--;
+								return true;
+							}
+							else{
+								curNode = curNode.getRightChild();
+							}
+						}
+						else if(removeNum<curNode.getNum()){
+							if(curNode.getLeftChild()==null){
+								curNode.setLeftChild(right);
+								size--;
+								return true;
+							}
+							else{
+								curNode = curNode.getLeftChild();
+							}
+						}
+						else
+						{
+							return false;
+						}
+					}
+				}
+			}
 		}
 	}
-	
+
 	@Override
 	public boolean remove(Object arg0) {
 		int num = (int) arg0;
@@ -257,5 +299,5 @@ public class BinarySearchTree implements Set{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
