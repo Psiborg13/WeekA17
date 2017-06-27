@@ -123,7 +123,7 @@ public class HashMap implements Map{
 
 	@Override
 	public Collection values() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
