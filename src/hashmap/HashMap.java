@@ -104,7 +104,6 @@ public class HashMap implements Map{
 	}
 
 	private void resize(){
-		int temp = size;
 		size = 0;
 		HashMap newArray = new HashMap(array.length*2);
 		for (int i = 0; i < array.length; i++) {
@@ -113,7 +112,6 @@ public class HashMap implements Map{
 			}
 		}
 		array = newArray.getArray();
-		size = temp;
 	}
 	
 	@Override
